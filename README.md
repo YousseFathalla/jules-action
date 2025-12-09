@@ -19,6 +19,8 @@ Invoke a powerful remote coding agent using GitHub Actions
 
 **This action** lets you trigger Jules from any GitHub event: issues, pull requests, schedules, or workflow dispatches.
 
+Check out our [example workflows](#🚀-example-workflows) for ideas on using Jules workflows to automatically fix bugs, improve performance, and more!
+
 ## ✨ Quick Start
 
 ### 1. Get a Jules API Key
@@ -35,31 +37,45 @@ Invoke a powerful remote coding agent using GitHub Actions
 
 ### 3. Create a Workflow
 
-Create `.github/workflows/jules.yml`:
+Create `.github/workflows/security-agent.yml`:
 
 ```yaml
-name: Invoke Jules
+name: Daily Security Scan
 
 on:
+  schedule:
+    - cron: '0 6 * * *'  # Every day at 6 AM
   workflow_dispatch:
-    inputs:
-      prompt:
-        description: 'Task for Jules'
-        required: true
 
 jobs:
-  jules:
+  scan:
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - uses: google-labs-code/jules-invoke@v1
         with:
-          prompt: ${{ github.event.inputs.prompt }}
+          prompt: |
+            You are a security agent. Scan for vulnerabilities and fix them:
+
+            CRITICAL (fix immediately):
+            - Hardcoded secrets, API keys, passwords
+            - SQL injection, command injection
+            - Missing auth on sensitive endpoints
+
+            HIGH PRIORITY:
+            - XSS, CSRF vulnerabilities
+            - Insecure direct object references
+            - Missing input validation
+
+            Rules:
+            - Fix highest severity first
+            - Keep changes under 100 lines
+            - Run tests before creating PR
           jules_api_key: ${{ secrets.JULES_API_KEY }}
 ```
 
-That's it! Go to **Actions** → **Invoke Jules** → **Run workflow** to try it.
+Your repo now has a security agent hunting vulnerabilities daily! 🛡️
 
 ---
 
@@ -75,15 +91,15 @@ That's it! Go to **Actions** → **Invoke Jules** → **Run workflow** to try it
 
 ---
 
-## 📂 Example Workflows
+## 🚀 Example Workflows
 
 Copy these into `.github/workflows/` and customize:
 
 | Example | Trigger | Description |
 |---------|---------|-------------|
-| [feature-from-issue](./examples/feature-from-issue.yml) | Issue labeled `feature` | Auto-implement features from issue descriptions |
-| [bug-fixer](./examples/bug-fixer.yml) | Issue labeled `bug` | Diagnose and fix bugs with structured prompts |
 | [weekly-cleanup](./examples/weekly-cleanup.yml) | Scheduled (cron) | Automated code maintenance and refactoring |
+| [performance-improver](./examples/performance-improver.yml) | Scheduled (daily) | ⚡ Hunt and fix performance bottlenecks |
+| [bug-fixer](./examples/bug-fixer.yml) | Issue labeled `bug` | Diagnose and fix bugs (or implement features) with structured prompts |
 | [ci-failure-fix](./examples/ci-failure-fix.yml) | CI workflow fails | Automatically fix failed builds |
 | [unblocked-issues](./examples/unblocked-issues.yml) | Issue closed | Work on issues that were blocked by the closed issue |
 
@@ -130,6 +146,7 @@ jobs:
 **More ideas for scheduled agents:**
 - Security audit agent (run `npm audit`, fix vulnerabilities)
 - Dependency updater (update deps, run tests, PR if green)
+- Docs updater agent (update docs based on recent changes)
 - Test coverage improver (find gaps, add tests, target 90%)
 
 
@@ -139,7 +156,7 @@ jobs:
 
 ## 🔐 Security
 
-> **⚠️ Important:** Issue-triggered workflows can be exploited. Always restrict who can trigger Jules.
+**⚠️ Important:** Issue-triggered workflows can be exploited by untrusted users opening issues. Always restrict who can trigger Jules for sources like GitHub issues.
 
 **Use allowlists:**
 
@@ -150,9 +167,7 @@ jobs:
 ```
 
 **Best practices:**
-- Never commit `JULES_API_KEY`—always use secrets
-- Review Jules' plan before approving changes
-- Use branch protection to require PR reviews
+- Never commit `JULES_API_KEY`—always use [GitHub actions secrets](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets)
 - Treat Jules like any team member: audit its work
 
 ---

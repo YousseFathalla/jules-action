@@ -12,18 +12,6 @@ Replace `["your-username", "trusted-collaborator"]` with your actual trusted use
 
 ## Workflows
 
-### [feature-from-issue.yml](./feature-from-issue.yml)
-**Trigger:** Issue labeled with `feature`
-
-Automatically implement features when you label issues. Great for delegating well-specified features to Jules while you focus on architecture.
-
-**Tips for best results:**
-- Write detailed issue descriptions with clear requirements
-- Include acceptance criteria when possible
-- Mention specific files or patterns to follow
-
----
-
 ### [bug-fixer.yml](./bug-fixer.yml)
 **Trigger:** Issue labeled with `bug`
 
@@ -45,6 +33,23 @@ Keep your codebase clean with automated maintenance. Removes dead code, reduces 
 - Adjusting the cron schedule
 - Adding/removing focus areas in the prompt
 - Targeting specific directories
+
+---
+
+### [performance-improver.yml](./performance-improver.yml)
+**Trigger:** Scheduled (daily at 4 AM UTC) or manual
+
+A performance optimization agent that hunts for speed improvements across frontend, backend, and general code patterns.
+
+**What it looks for:**
+- Frontend: unnecessary re-renders, code splitting opportunities, unoptimized images
+- Backend: N+1 queries, missing indexes, caching opportunities
+- General: O(n²) algorithms, redundant calculations, inefficient data structures
+
+**How it works:**
+- Only creates PR if there's measurable impact
+- Keeps changes under 50 lines
+- Includes expected performance improvement in PR description
 
 ---
 

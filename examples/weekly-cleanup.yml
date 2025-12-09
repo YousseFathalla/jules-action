@@ -49,5 +49,7 @@ jobs:
             - Preserve existing functionality
             - Run tests to verify changes
             - Group related changes logically
+
+            Do not open a PR if you do not have a validated and impactful change.
           jules_api_key: ${{ secrets.JULES_API_KEY }}
           include_commit_log: true
