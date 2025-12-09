@@ -93,22 +93,47 @@ See [examples/README.md](./examples/README.md) for detailed setup instructions.
 
 ## 💡 Writing Good Prompts
 
-Jules works best with specific, detailed prompts:
+Jules excels when you give it **clear specifications** or **measurable targets** it can verify. This is especially powerful for scheduled workflows that run continuously.
 
-**❌ Vague:**
-```
-Add login
+**Example: Weekly Performance Agent**
+
+```yaml
+name: Performance Improvement Agent
+on:
+  schedule:
+    - cron: '0 3 * * 1'  # Every Monday at 3 AM
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-labs-code/jules-invoke@v1
+        with:
+          prompt: |
+            You are a performance improvement agent. Run our benchmark suite
+            and look for optimization opportunities:
+
+            1. Run `npm run bench` to get current metrics
+            2. Identify the slowest endpoints or functions
+            3. Implement optimizations (caching, query improvements, algorithm changes)
+            4. Re-run benchmarks to verify improvement
+            5. Only open a PR if you achieve measurable gains
+
+            Constraints:
+            - Don't change public API contracts
+            - All existing tests must pass
+          jules_api_key: ${{ secrets.JULES_API_KEY }}
 ```
 
-**✅ Specific:**
-```
-Add JWT authentication with:
-- POST /api/login endpoint (email/password)
-- Access token (1h) and refresh token (7d)
-- Bcrypt password hashing
-- Auth middleware for protected routes
-- Integration tests for the auth flow
-```
+**Why this works:** Jules can run benchmarks, iterate on solutions, and verify its own success. Give Jules a target it can measure, and it becomes a continuous improvement loop.
+
+**More ideas for scheduled agents:**
+- Security audit agent (run `npm audit`, fix vulnerabilities)
+- Dependency updater (update deps, run tests, PR if green)
+- Test coverage improver (find gaps, add tests, target 90%)
+
+
+
 
 ---
 
