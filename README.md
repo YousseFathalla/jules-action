@@ -5,7 +5,7 @@
 ## Jules Invoke
 Invoke a powerful remote coding agent using GitHub Actions
 
-[Get Started](#-quick-start) • [Examples](./examples) • [API Docs](https://developers.google.com/jules/api)
+[Get Started](#-quick-start) • [Examples](./examples) • [API Docs](https://jules.google/docs/api/reference/)
 
 [![Built with Jules](https://img.shields.io/badge/Built%20with-Jules-715cd7?link=https://jules.google)](https://jules.google)
 
@@ -27,7 +27,7 @@ Check out our [example workflows](#🚀-example-workflows) for ideas on using Ju
 
 1. Authenticate with GitHub at [jules.google.com](https://jules.google.com)
 2. Generate an API key from your account settings
-3. See [API docs](https://developers.google.com/jules/api) for details
+3. See [API docs](https://jules.google/docs/api/reference/) for details
 
 ### 2. Add to GitHub Secrets
 
@@ -176,7 +176,7 @@ jobs:
 
 - **Jules Homepage:** [jules.google](https://jules.google)
 - **Jules Web App:** [jules.google.com](https://jules.google.com)
-- **API Documentation:** [developers.google.com/jules/api](https://developers.google.com/jules/api)
+- **API Documentation:** [jules.google/docs/api/reference](https://jules.google/docs/api/reference/)
 - **GitHub Actions:** [docs.github.com/actions](https://docs.github.com/actions)
 
 ---
@@ -195,6 +195,6 @@ If you find this useful, add the badge to your README:
 
 **Built with ❤️ by Google**
 
-[Jules](https://jules.google) • [API Docs](https://developers.google.com/jules/api) • [Report Issues](https://github.com/google-labs-code/jules-invoke/issues)
+[Jules](https://jules.google) • [API Docs](https://jules.google/docs/api/reference/) • [Report Issues](https://github.com/google-labs-code/jules-invoke/issues)
 
 </div>

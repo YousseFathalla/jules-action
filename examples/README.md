@@ -95,5 +95,5 @@ jobs:
 ## Need Help?
 
 - [Jules Documentation](https://jules.google/docs)
-- [Jules API Reference](https://developers.google.com/jules/api)
+- [Jules API Reference](https://jules.google/docs/api/reference/)
 - [GitHub Actions Docs](https://docs.github.com/actions)
