@@ -63,7 +63,7 @@ runs:
     - name: Assemble Jules payload
       shell: bash
       run: |
-        jq -n --arg jules_prompt "$(cat prompt.txt)" --arg starting_branch "${{ inputs.starting_branch }}" --arg repo_full_name "${{ github.repository }}" '{
+        jq -n --rawfile jules_prompt prompt.txt --arg starting_branch "${{ inputs.starting_branch }}" --arg repo_full_name "${{ github.repository }}" '{
             "prompt": $jules_prompt,
             "sourceContext": {
               "source": "sources/github/\($repo_full_name)",
